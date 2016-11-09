@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>Frontend with AWS S3 and Cloudfront</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
@@ -24,8 +24,73 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+					<h1>Deploy frontend apps with AWS</h1>
+				</section>
+				<section>
+					<h2>Agenda</h2>
+					<ul>
+						<li class="fragment">Amazon S3</li>
+						<li class="fragment">Hosting (Workshop)</li>
+						<li class="fragment">Amazon Cloudfront</li>
+						<li class="fragment">Caching (Workshop)</li>
+						<li class="fragment">CNAME, SSL, pricing++</li>
+						<li class="fragment">Deploy</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Hva er S3? - laste opp enkel nettside</li>
+							<li>Hva er Cloudfront? - konfigurer for nettsiden</li>
+							<li>Snakke om sette CNAME og SSL (er i workshop)</li>
+							<li>Snakke om deploy (er i workshop)</li>
+						</ul>
+					</aside>
+				</section>
+				<section>
+					<h2>Amazon S3</h2>
+				</section>
+				<section>
+					<h2>Hosting (workshop)</h2>
+					<a href="https://github.com/tomfa/aws-frontend-workshop">github.com/tomfa/aws-frontend-workshop/</a>
+				</section>
+				<section>
+					<h2>Amazon Cloudfront</h2>
+				</section>
+				<section>
+					<h2>Caching (workshop)</h2>
+					<a href="https://github.com/tomfa/aws-frontend-workshop">github.com/tomfa/aws-frontend-workshop/</a>
+				</section>
+				<section>
+					<h2>CNAME</h2>
+				</section>
+				<section>
+					<h2>SSL</h2>
+				</section>
+				<section>
+					<h2>Deploy</h2>
+				</section>
+				<section>
+					<h2>Pricing</h2>
+				</section>
+				<section>
+					<h2>Summary</h2>
+					<ul>
+						<li class="fragment">S3 hosting is dirt cheap</li>
+						<li class="fragment">Cloudfront is dirt cheap</li>
+						<li class="fragment">Cloudfront is fast</li>
+						<li class="fragment">Cloudfront with Amazon SSL is free</li>
+						<li class="fragment">Cloudfront with Amazon SSL is easy</li>
+					</ul>
+
+					<aside class="notes">
+						<ul>
+							<li>Har hosting, dirt cheap</li>
+							<li>Noen quirks med /figur/15</li>
+							<li>Har caching, dirt cheap</li>
+							<li>Kan cache backend også – tregt</li>
+						</ul>
+					</aside>
+				</section>
 			</div>
 		</div>
 
@@ -36,6 +101,7 @@
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 				history: true,
+				controls: false,
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
