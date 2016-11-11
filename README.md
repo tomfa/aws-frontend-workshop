@@ -95,3 +95,22 @@ Notice now that [HTTP://fishsticksonarod.s3-eu-central-1.amazonaws.com]() works,
 
 Losing HTTPS in not acceptable. There's a few other quirks with using S3 as a direct endpoint (or CNAME'ed to), but they can all be remedied with CloudFront.
 
+## Adding Cloudfront
+Cloudfront is a cache layer / CDN service from AWS. It helpes us with certain aspects. It simplifies HTTPS and the use of certificates. It optimizes latency, through distributing cache to different location. And it can gzip your content, and lower your costs.
+
+Also, you can combine it with Cloudtrail for detailed logging, as well as generate a more condence report on the traffic to the Cloudfront distributions.
+
+1. **Create a Cloudfront distribution**
+Go to Cloudfront in the [AWS Console](https://console.aws.amazon.com/cloudfront).
+Select your S3 bucket (fishsticksonarod.s3.amazonaws.com) as Origin Domain Name. Also, set *Compress Objects Automatically* to *Yes*, and *Default Root Object* to *index.html* Other than that, you can go for the defaults :)
+&nbsp;
+**Notable configuration options**
+- *Restrict bucket access*: You can make the bucket only accessable via cloudfront
+- *Viewer Protocol Policy*: You can auto redirect HTTP to HTTPS
+- *Allowed HTTP Methods*: You can allow all methods, but cloudfront will never cache methods other than GET, HEAD (optionally OPTIONS)
+- *Forward Headers*: Forwarding all headers disables caching. Both this and forwarding cookies should be *None* or *Whitelist* if possible.
+- *Alternate Domain Names*: Which domains that can be allowed to CNAME here
+- *SSL Certificate:* You can request a (free) SSL certificate from AWS for this service, and it will be automatically updated before it expires. (You can also provide your own certificate). Be aware though, that the SSL certificates must come from US East (N. Virginia) Region.
+
+The distribution will take ~15 minutes to boot up before being accessable.
+
