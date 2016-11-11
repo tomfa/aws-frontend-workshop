@@ -91,7 +91,7 @@ You can do this through AWS Console > FishSticksAsBait > Properties > Static Web
 &nbsp;
 Set ```index.html``` as the index and error document.
 &nbsp;
-Notice now that [HTTP://fishsticksonarod.s3-eu-central-1.amazonaws.com]() works, while [HTTPS://fishsticksonarod.s3-eu-central-1.amazonaws.com]() does not!
+Notice now that [HTTP://fishsticksonarod.s3-website.eu-central-1.amazonaws.com/]() works, while [HTTPS://fishsticksonarod.s3-website.eu-central-1.amazonaws.com/]() does not!
 
 Losing HTTPS in not acceptable. There's a few other quirks with using S3 as a direct endpoint (or CNAME'ed to), but they can all be remedied with CloudFront.
 
@@ -111,6 +111,29 @@ Select your S3 bucket (fishsticksonarod.s3.amazonaws.com) as Origin Domain Name.
 - *Forward Headers*: Forwarding all headers disables caching. Both this and forwarding cookies should be *None* or *Whitelist* if possible.
 - *Alternate Domain Names*: Which domains that can be allowed to CNAME here
 - *SSL Certificate:* You can request a (free) SSL certificate from AWS for this service, and it will be automatically updated before it expires. (You can also provide your own certificate). Be aware though, that the SSL certificates must come from US East (N. Virginia) Region.
-
+&nbsp;
 The distribution will take ~15 minutes to boot up before being accessable.
 
+2. **Handling /path in app**
+In the app we created, there's an route available on the path ```/test```.
+&nbsp;
+By default, both S3\* and Cloudfront will detect this as a 404, as there is no file called ```test```. For us to instead return index.html, select your *Cloudfront distribution*, and click *Distribution settings*. Under *Error Pages*, create a custom response for 404, which instead should return path ```/``` with a 200 status code. (Note that this change will also take ~15 min)
+&nbsp;
+*\*The S3 website at [HTTP://fishsticksonarod.s3-website.eu-central-1.amazonaws.com/]() will be able to return index.html, as it is it's default error object. However, due to the 404 status code that is returned with it, some strange behaviour can appear in certain versions of Internet Explorer.*
+
+## That's it!
+Your app is up and running, and it can take a beating. It's response time is great, and it can with ease support custom domains and SSL to those.
+
+You can try benchmarking Cloudfront vs S3 via ```Developer tools``` -> ```Network``` in Chrome. As long as the S3 bucket was placed in the AWS region nearest you, you might not experience much of a difference in terms of latency. However, since Cloudfront gzips your files you can still see a gain. Here's my tests for ```bundle.js``` over 100 requests:
+
+| Service / region | Size           | Average   |
+| ---------------- |:--------------:| ---------:|
+| S3 US west       | 917KB          | 609.68 ms |
+| S3 EU central    | 917KB          | 198.01 ms |
+| Cloudfront       | 166KB          | 139.54 ms |
+
+**What about pricing?**
+Pricing in AWS is difficult. But the bottom line is: It's basically very cheap. For hobby usage, I'll bet you a beer it costs less than a beer. And that you'll probably pay less with Cloudfront than without. See more at:
+
+- [amazon.com/s3/pricing/](https://aws.amazon.com/s3/pricing/)
+- [amazon.com/cloudfront/pricing/](https://aws.amazon.com/cloudfront/pricing/)
