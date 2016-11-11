@@ -63,3 +63,35 @@ This allow everyone to get any files in your bucket. Now, [https://fishsticksona
 
 **PS!** Notice how index.html uses style.css in the **folder** static. How will this work out when we have a React router? (secret: We're getting to that soon)
 
+## Host a */website/* on S3
+1. **Checkout the master branch**
+This contains a simple React-Redux app, using among other things a Router.
+```
+git checkout master
+```
+
+2. **Compile the app**
+We want to compile this app locally first, before uploading the compiled files.
+```
+npm install
+npm run build
+```
+
+3. **Upload and overwrite**
+When we uploaded the previously, perhaps you noticed that we uploaded the ```.git``` folder, among other things. We can exclude this, by adding ```--exclude ".git/*"``` to the sync command. We can also add ```--delete```, which deletes any files at the destination which is not in the source.
+```
+aws s3 sync ./dist/ s3://fishsticksasbait --region=eu-central-1 --exclude ".git/*" --delete
+```
+You can checkout [https://fishsticksonarod.s3-eu-central-1.amazonaws.com/index.html]() to see the app.
+
+4. **Enable website hosting**
+As you may have noticed, the endpoint [https://fishsticksonarod.s3-eu-central-1.amazonaws.com]() does not work. We can make index.html our default index document, by turning on the website hosting feature.
+&nbsp;
+You can do this through AWS Console > FishSticksAsBait > Properties > Static Website Hosting > Enable website hosting, or through the [aws cli](http://docs.aws.amazon.com/cli/latest/reference/s3/website.html).
+&nbsp;
+Set ```index.html``` as the index and error document.
+&nbsp;
+Notice now that [HTTP://fishsticksonarod.s3-eu-central-1.amazonaws.com]() works, while [HTTPS://fishsticksonarod.s3-eu-central-1.amazonaws.com]() does not!
+
+Losing HTTPS in not acceptable. There's a few other quirks with using S3 as a direct endpoint (or CNAME'ed to), but they can all be remedied with CloudFront.
+
