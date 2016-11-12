@@ -42,7 +42,7 @@ Voilà! You should immediately be able to see the glories website at [https://fi
 *(Nope, I lied, sorry)*
 
 5. **Make your bucket publicly accessable**
-By default, your bucket is not publicly accessable. In our case, we want everyone to be able to read from the bucket, but not write. We can do this by adding the following policy to the bucket:
+By default, your bucket is not publicly accessable. In our case, we want everyone to be able to read from the bucket, but not write. We can do this under *AWS Console > FishSticksAsBait > Properties > Permissions*. Allow *Everyone* to *List*, and add the following policy to the bucket:
 ```
 {
 	"Version": "2012-10-17",
@@ -57,7 +57,7 @@ By default, your bucket is not publicly accessable. In our case, we want everyon
 	]
 }
 ```
-You can either do this through AWS Console > FishSticksAsBait > Properties > Permissions > Edit bucket policy, or through the [aws cli](http://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-policy.html).
+It's also possible to do this through the [aws cli](http://docs.aws.amazon.com/cli/latest/reference/s3api/put-bucket-policy.html).
 
 This allow everyone to get any files in your bucket. Now, [https://fishsticksonarod.s3-eu-central-1.amazonaws.com/index.html]() should work (pinky-swear).
 
@@ -128,12 +128,15 @@ You can try benchmarking Cloudfront vs S3 via ```Developer tools``` -> ```Networ
 
 | Service / region | Size           | Average   |
 | ---------------- |:--------------:| ---------:|
-| S3 US west       | 917KB          | 609.68 ms |
-| S3 EU central    | 917KB          | 198.01 ms |
-| Cloudfront       | 166KB          | 139.54 ms |
+| S3 US west       | 917KB          | 1750.8 ms |
+| S3 EU central    | 917KB          | 610.62 ms |
+| Cloudfront       | 166KB          | 353.64 ms |
+| S3 US west       | 917KB (cache)  | 609.68 ms |
+| S3 EU central    | 917KB (cache)  | 198.01 ms |
+| Cloudfront       | 166KB (cache)  | 139.54 ms |
 
 **What about pricing?**
-Pricing in AWS is difficult. But the bottom line is: It's basically very cheap. For hobby usage, I'll bet you a beer it costs less than a beer. And that you'll probably pay less with Cloudfront than without. See more at:
+Pricing in AWS is difficult. But the bottom line is: It's cheap. For hobby usage, I'll bet you a beer it costs less than a beer. And that you'll probably pay less with Cloudfront than without. See more at:
 
 - [amazon.com/s3/pricing/](https://aws.amazon.com/s3/pricing/)
 - [amazon.com/cloudfront/pricing/](https://aws.amazon.com/cloudfront/pricing/)
