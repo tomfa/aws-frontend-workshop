@@ -140,3 +140,14 @@ Pricing in AWS is difficult. But the bottom line is: It's cheap. For hobby usage
 
 - [amazon.com/s3/pricing/](https://aws.amazon.com/s3/pricing/)
 - [amazon.com/cloudfront/pricing/](https://aws.amazon.com/cloudfront/pricing/)
+
+## Extras
+If you want something more to do, you could either:
+
+1. Use Route53 to manage a domain of yours, and forward it to your Cloudfront distribution
+2. Add SSL to your distribution, using Amazon Certificate Manager.
+
+Or you could:
+
+1. Change the React app, so it uses data from [the beanstalk workshop](https://github.com/helleroy/beanstalk-workshop) instead of from 500px
+2. Add a Cloudfront distribution in front of your backend
