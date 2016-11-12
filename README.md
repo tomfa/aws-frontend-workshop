@@ -117,7 +117,7 @@ The distribution will take ~15 minutes to boot up before being accessable.
 2. **Handling /path in app**
 In the app we created, there's an route available on the path ```/test```.
 &nbsp;
-By default, both S3\* and Cloudfront will detect this as a 404, as there is no file called ```test```. For us to instead return index.html, select your *Cloudfront distribution*, and click *Distribution settings*. Under *Error Pages*, create a custom response for 404, which instead should return path ```/``` with a 200 status code. (Note that this change will also take ~15 min)
+By default, both S3\* and Cloudfront will detect this as a 404, as there is no file called ```test```. For us to instead return index.html, select your *Cloudfront distribution*, and click *Distribution settings*. Under *Error Pages*, create a custom response for 404, which instead should return path ```/index.html``` with a 200 status code. (Note that this change will also take ~15 min)
 &nbsp;
 *\*The S3 website at [HTTP://fishsticksonarod.s3-website.eu-central-1.amazonaws.com/]() will be able to return index.html, as it is it's default error object. However, due to the 404 status code that is returned with it, some strange behaviour can appear in certain versions of Internet Explorer.*
 
