@@ -20,6 +20,18 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+
+		<style>
+			code.fancy {
+				display: block;
+				border: 1px solid white;
+				padding: 1rem;
+			}
+
+			code.small {
+				font-size: 1.4rem;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -30,12 +42,10 @@
 				<section>
 					<h2>Agenda</h2>
 					<ul>
-						<li class="fragment">Amazon S3</li>
-						<li class="fragment">Hosting (Workshop)</li>
-						<li class="fragment">Amazon Cloudfront</li>
-						<li class="fragment">Caching (Workshop)</li>
-						<li class="fragment">CNAME, SSL, pricing++</li>
-						<li class="fragment">Deploy</li>
+						<li>Amazon S3</li>
+						<li>Amazon Cloudfront</li>
+						<li>Workshop</li>
+						<li>CNAME, SSL, deploy, pricing++</li>
 					</ul>
 					<aside class="notes">
 						<ul>
@@ -48,29 +58,83 @@
 				</section>
 				<section>
 					<h2>Amazon S3</h2>
-				</section>
-				<section>
-					<h2>Hosting (workshop)</h2>
-					<a href="https://github.com/tomfa/aws-frontend-workshop">github.com/tomfa/aws-frontend-workshop/</a>
+					<ul>
+						<li class="fragment">Hoster filer</li>
+						<li class="fragment">Private/Åpne/Delt</li>
+						<li class="fragment">Eksisterer i én region</li>
+						<li class="fragment"><a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html">Versjonering</a></li>
+						<li class="fragment"><a href="http://docs.aws.amazon.com/AmazonS3/latest/dev/S3TorrentPublish.html">Bittorrent</a></li>
+					</ul>
+					<aside class="notes">
+						- Permanent lagring
+						- Dele optional / Kan la andre laste opp
+						- Finnes i én region
+						- Versjonering
+						- Bittorrent feature (kan ikke)
+						- Har også static web hosting (suger)
+					</aside>
 				</section>
 				<section>
 					<h2>Amazon Cloudfront</h2>
+					<ul>
+						<li class="fragment">Distribuert lagring</li>
+						<li class="fragment">Cache</li>
+						<li class="fragment">SSL-endepunkt</li>
+						<li class="fragment">Streaming feature</li>
+						<li class="fragment">Logging og stats</li>
+						<li class="fragment">Lavere kost</li>
+					</ul>
+					<aside class="notes">
+						- Finnes rundt om kring i verden
+						- Cache-innstillinger
+						- Forenkler SSL-bruk
+						- Streamer HLS, RTMP, Microsoft smooth streaming
+						- Logger request til S3 bucket + Report
+						- Lavere kost (0.02-0.085 for CF), (0.05-0.09 for S3)
+					</aside>
 				</section>
 				<section>
-					<h2>Caching (workshop)</h2>
+					<h2>Workshop</h2>
 					<a href="https://github.com/tomfa/aws-frontend-workshop">github.com/tomfa/aws-frontend-workshop/</a>
 				</section>
 				<section>
 					<h2>CNAME</h2>
+					<ul>
+						<li class="fragment">Cloudfront: Alternate Domain Names</li>
+						<li class="fragment">(Route53)</li>
+					</ul>
 				</section>
 				<section>
 					<h2>SSL</h2>
+					<ul>
+						<li>AWS Certificate Manager (gratis)</li>
+						<ul>
+							<li class="fragment">eu-east-1 (N. Virginia)</li>
+						</ul>
+						<li class="fragment">Custom sertifikater</li>
+					</ul>
+					<aside class="notes">
+						- Såg det i Cloudfront
+						- ACM: Klikk, velg domener, trykk OK på e-post (Ikke terraform)
+						- Velg fra dropdown i CF
+						- MÅ være North Virginia
+						- Støtter også egne certifikater
+					</aside>
 				</section>
 				<section>
 					<h2>Deploy</h2>
-				</section>
-				<section>
-					<h2>Pricing</h2>
+					Tja.
+					<code class="fragment fancy small">aws s3 sync ./dist/ s3://rodneyhadafish --region=eu-central-1 --exclude ".git/*" --delete</code>
+
+					<aside class="notes">
+						<ul>
+							<li>- Ingen innebygd greie</li>
+							<li>- Funker ok med Jenkins</li>
+							<li>-- Hook som poker en byggserver</li>
+							<li>- Tredjepartgreier: git-s3 (lokal), IFTTT-lignende</li>
+							<li>- AWS CodeDeploy</li>
+						</ul>
+					</aside>
 				</section>
 				<section>
 					<h2>Summary</h2>
